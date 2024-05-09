@@ -35,10 +35,10 @@ jobs:
         flags: unittests
         name: codecov-umbrella
     - name: Deploy to Heroku
-      if: github.ref == 'refs/heads/main' && job.status == 'success'
-      run: |
-        wget -qO- https://cli-assets.heroku.com/install.sh | sh
-        heroku git:remote -a ${{ secrets.HEROKU_APP_NAME }}
-        git push heroku HEAD:main
-      env:
-        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      uses: AkhileshNS/heroku-deploy@v3.12.12
+      with:
+        heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+        heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
+        heroku_email: "<jurrutia@garlockflexibles.com>"
+        usedocker: false
+        branch: main
