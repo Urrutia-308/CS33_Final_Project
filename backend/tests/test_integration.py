@@ -43,7 +43,7 @@ class TestFlaskApi(TestCase):
         mock_cursor.fetchall.return_value = [(19, 'Team Meeting'), (20, 'Team Meeting')]
         response = self.client.get('/getSchedules')
         assert response.status_code == 200
-        assert len(response.json) == 86
+        assert len(response.json) == 87
         assert response.json[0]['title'] == 'new'
 
 
@@ -72,7 +72,7 @@ class TestFlaskApi(TestCase):
         mock_cursor = mock_conn.cursor.return_value
         mock_cursor.rowcount = 1
 
-        response = self.client.delete('/deleteEvent/80')
+        response = self.client.delete('/deleteEvent/82')
         assert response.status_code == 200
         assert 'Event deleted successfully' in response.json['message']
 
