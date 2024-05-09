@@ -7,7 +7,9 @@ import mysql.connector
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all domains on all routes
 
-
+@app.route('/')
+def home():
+    return "Welcome! :)", 200
 
 @app.route('/createSchedule', methods=['POST'])
 def create_schedule():
@@ -178,4 +180,4 @@ def get_events_logic(scheduleID, db_connection):
     
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000)

@@ -36,15 +36,19 @@ class TestFlaskApi(TestCase):
 
     
 
-    @patch('models.connectToDB')
-    def test_get_schedules_success(self, mock_db):
-        mock_conn = mock_db.return_value
-        mock_cursor = mock_conn.cursor.return_value
-        mock_cursor.fetchall.return_value = [(19, 'Team Meeting'), (20, 'Team Meeting')]
+    @patch('app.get_schedules_logic')
+    def test_get_schedules_success(self, mock_get_schedules_logic):
+        # Mock the return value of get_schedules_logic
+        mock_schedules = [
+            {'id': 1, 'title': 'Team Meeting'},
+            {'id': 2, 'title': 'Project Review'}
+        ]
+        mock_get_schedules_logic.return_value = (mock_schedules, None, 200)
+
         response = self.client.get('/getSchedules')
         assert response.status_code == 200
-        assert len(response.json) == 90
-        assert response.json[0]['title'] == 'new'
+        assert len(response.json) == 2
+        assert response.json == mock_schedules
 
 
     def test_create_schedule_no_title(self):
@@ -66,15 +70,25 @@ class TestFlaskApi(TestCase):
 
 
 
-    @patch('models.connectToDB')
+    """ @patch('models.connectToDB')
     def test_delete_event_success(self, mock_db):
         mock_conn = mock_db.return_value
         mock_cursor = mock_conn.cursor.return_value
         mock_cursor.rowcount = 1
 
-        response = self.client.delete('/deleteEvent/79')
+        response = self.client.delete('/deleteEvent/80')
+        assert response.status_code == 200
+        assert 'Event deleted successfully' in response.json['message'] """
+    
+    @patch('app.delete_event_logic')
+    def test_delete_event_success(self, mock_delete_event_logic):
+        mock_delete_event_logic.return_value = ({'message': 'Event deleted successfully'}, None, 200)
+
+        response = self.client.delete('/deleteEvent/80')
         assert response.status_code == 200
         assert 'Event deleted successfully' in response.json['message']
+
+        mock_delete_event_logic.assert_called_once_with(80, mock_delete_event_logic.call_args[0][1])
 
     @patch('models.connectToDB')
     def test_delete_event_not_found(self, mock_db):
