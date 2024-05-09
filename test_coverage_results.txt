@@ -1,0 +1,24 @@
+============================= test session starts =============================
+platform win32 -- Python 3.9.13, pytest-8.2.0, pluggy-1.5.0
+rootdir: C:\Users\jose_\OneDrive\Desktop\CS333_Final\CS33_Final_Project
+plugins: Faker-24.9.0, cov-5.0.0, mock-3.14.0
+collected 26 items
+
+backend\tests\test_integration.py ........                               [ 30%]
+backend\tests\test_units.py ..................                           [100%]
+
+---------- coverage: platform win32, python 3.9.13-final-0 -----------
+Name                                Stmts   Miss  Cover   Missing
+-----------------------------------------------------------------
+backend\app.py                        136      9    93%   16, 44, 70, 75, 94, 100, 131, 153, 181
+backend\models.py                      11      3    73%   16-18
+backend\testDBconnection.py             8      8     0%   2-12
+backend\tests\__init__.py               0      0   100%
+backend\tests\test_integration.py      74      1    99%   106
+backend\tests\test_units.py           147      1    99%   279
+-----------------------------------------------------------------
+TOTAL                                 376     22    94%
+Coverage HTML written to dir htmlcov
+
+
+============================= 26 passed in 5.16s ==============================
