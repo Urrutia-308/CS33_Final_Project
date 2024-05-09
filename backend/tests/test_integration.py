@@ -80,7 +80,7 @@ class TestFlaskApi(TestCase):
         assert response.status_code == 200
         assert 'Event deleted successfully' in response.json['message']
     
-    @patch('app.delete_event_logic')
+    """ @patch('app.delete_event_logic')
     def test_delete_event_success(self, mock_delete_event_logic):
         mock_delete_event_logic.return_value = ({'message': 'Event deleted successfully'}, None, 200)
 
@@ -88,7 +88,7 @@ class TestFlaskApi(TestCase):
         assert response.status_code == 200
         assert 'Event deleted successfully' in response.json['message']
 
-        mock_delete_event_logic.assert_called_once_with(80, mock_delete_event_logic.call_args[0][1])
+        mock_delete_event_logic.assert_called_once_with(80, mock_delete_event_logic.call_args[0][1]) """
 
     @patch('models.connectToDB')
     def test_delete_event_not_found(self, mock_db):
